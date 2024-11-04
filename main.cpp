@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <algorithm>
 #include "Goat.h"
 using namespace std;
 
@@ -12,6 +13,8 @@ int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void duplicate(list<Goat> &trip);
+void fill(list<Goat> &trip);
+void find_goat(list<Goat> &trip);
 
 void display_trip(list<Goat> trip);
 int main_menu();
@@ -64,6 +67,11 @@ int main() {
             case 4:
                 duplicate(trip);
                 break;
+            case 5:
+                fill(trip);
+                break;
+            case 6:
+                find_goat(trip);
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -81,7 +89,7 @@ int main_menu() {
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
     cout << "[4] Duplicate all goats\n";
-    cout << "[5] \n";
+    cout << "[5] Make goats same\n";
     cout << "[6]\n";
     cout << "[7]\n";
     cout << "[8]\n";
@@ -99,8 +107,17 @@ int main_menu() {
     return choice;
 }
 
+void find_goat(list<Goat> &trip){
+
+}
+
+void fill(list<Goat> &trip){
+    fill(trip.begin(), trip.end(), Goat("Joe", 10, "White"));
+    display_trip(trip);
+}
+
 void duplicate(list<Goat> &trip){
-    list<Goat> trip2;
+    list<Goat> trip2(trip.size());
     copy(trip.begin(), trip.end(), trip2.begin());
     trip.merge(trip2);
 
