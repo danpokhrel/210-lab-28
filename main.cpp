@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <random>
 #include "Goat.h"
 using namespace std;
 
@@ -16,6 +17,8 @@ void add_goat(list<Goat> &trip, string [], string []);
 void duplicate(list<Goat> &trip);
 void fill(list<Goat> &trip);
 void find_goat(list<Goat> &trip);
+void make_black(list<Goat> &trip);
+void shuffle_trip(list<Goat> &trip);
 
 void display_trip(list<Goat> trip);
 int main_menu();
@@ -73,6 +76,12 @@ int main() {
                 break;
             case 6:
                 find_goat(trip);
+                break;
+            case 7:
+                make_black(trip);
+                break;
+            case 8:
+                shuffle_trip(trip);
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -92,9 +101,9 @@ int main_menu() {
     cout << "[4] Duplicate all goats\n";
     cout << "[5] Make goats same\n";
     cout << "[6] Find goat\n";
-    cout << "[7]\n";
-    cout << "[8]\n";
-    cout << "[9]\n";
+    cout << "[7] Make all goats black\n";
+    cout << "[8] Shuffle trip\n";
+    cout << "[9] \n";
     cout << "[10]\n";
     cout << "[11]\n";
     cout << "[12] Quit\n";
@@ -108,9 +117,19 @@ int main_menu() {
     return choice;
 }
 
+void shuffle_trip(list<Goat> &trip){
+    shuffle(trip.begin(), trip.end(), default_random_engine());
+    display_trip(trip);
+}
+
+void make_black(list<Goat> &trip){
+    for_each(trip.begin(), trip.end(), [](Goat &goat){ goat.set_color("Black"); });
+    display_trip(trip);
+}
+
 void find_goat(list<Goat> &trip){
-    cout << "Name: ";
-    string name; getline(cin, name); cin.ignore();
+    cout << "\nName: ";
+    string name; getline(cin, name);
 
     auto it = find_if(trip.begin(), trip.end(), [name](const Goat &goat){ return goat.get_name() == name; });
     if (it == trip.end()){
