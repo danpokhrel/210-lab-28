@@ -1,3 +1,4 @@
+// COMSC-210 | Lab 28 | Dan Pokhrel
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -10,6 +11,8 @@ const int SZ_NAMES = 200, SZ_COLORS = 25;
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
+void duplicate(list<Goat> &trip);
+
 void display_trip(list<Goat> trip);
 int main_menu();
 
@@ -44,7 +47,7 @@ int main() {
     
     // Goat Manager 3001 Engine
     int sel = main_menu();
-    while (sel != 4) {
+    while (sel != 12) {
         switch (sel) {
             case 1:
                 cout << "Adding a goat.\n";
@@ -57,6 +60,9 @@ int main() {
             case 3:    
                 cout << "Displaying goat data.\n";
                 display_trip(trip);
+                break;
+            case 4:
+                duplicate(trip);
                 break;
             default:
                 cout << "Invalid selection.\n";
@@ -74,15 +80,31 @@ int main_menu() {
     cout << "[1] Add a goat\n";
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
-    cout << "[4] Quit\n";
+    cout << "[4] Duplicate all goats\n";
+    cout << "[5] \n";
+    cout << "[6]\n";
+    cout << "[7]\n";
+    cout << "[8]\n";
+    cout << "[9]\n";
+    cout << "[10]\n";
+    cout << "[11]\n";
+    cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 4) {
+    while (choice < 1 || choice > 12) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void duplicate(list<Goat> &trip){
+    list<Goat> trip2;
+    copy(trip.begin(), trip.end(), trip2.begin());
+    trip.merge(trip2);
+
+    display_trip(trip);
 }
 
 void delete_goat(list<Goat> &trip) {
@@ -120,7 +142,7 @@ int select_goat(list<Goat> trp) {
     display_trip(trp);
     cout << "Choice --> ";
     cin >> input;
-    while (input < 1 or input > trp.size()) {
+    while (input < 1 || input > trp.size()) {
         cout << "Invalid choice, again --> ";
         cin >> input;
     }
