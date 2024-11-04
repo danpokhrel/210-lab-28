@@ -18,7 +18,9 @@ void duplicate(list<Goat> &trip);
 void fill(list<Goat> &trip);
 void find_goat(list<Goat> &trip);
 void make_black(list<Goat> &trip);
-void shuffle_trip(list<Goat> &trip);
+void reverse_trip(list<Goat> &trip);
+void clear_trip(list<Goat> &trip);
+void sort_trip(list<Goat> &trip);
 
 void display_trip(list<Goat> trip);
 int main_menu();
@@ -81,7 +83,14 @@ int main() {
                 make_black(trip);
                 break;
             case 8:
-                shuffle_trip(trip);
+                reverse_trip(trip);
+                break;
+            case 9:
+                clear_trip(trip);
+                break;
+            case 10:
+                sort_trip(trip);
+                break;
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -102,9 +111,9 @@ int main_menu() {
     cout << "[5] Make goats same\n";
     cout << "[6] Find goat\n";
     cout << "[7] Make all goats black\n";
-    cout << "[8] Shuffle trip\n";
-    cout << "[9] \n";
-    cout << "[10]\n";
+    cout << "[8] Reverse trip\n";
+    cout << "[9] Clear trip\n";
+    cout << "[10] Sort trip by age\n";
     cout << "[11]\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
@@ -117,8 +126,16 @@ int main_menu() {
     return choice;
 }
 
-void shuffle_trip(list<Goat> &trip){
-    shuffle(trip.begin(), trip.end(), default_random_engine());
+void sort_trip(list<Goat> &trip){
+
+}
+
+void clear_trip(list<Goat> &trip){
+    trip.clear();
+}
+
+void reverse_trip(list<Goat> &trip){
+    reverse(trip.begin(), trip.end());
     display_trip(trip);
 }
 
