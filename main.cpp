@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <numeric>
 #include <random>
 #include "Goat.h"
 using namespace std;
@@ -21,6 +22,7 @@ void make_black(list<Goat> &trip);
 void reverse_trip(list<Goat> &trip);
 void clear_trip(list<Goat> &trip);
 void sort_trip(list<Goat> &trip);
+void acc_ages(list<Goat> &trip);
 
 void display_trip(list<Goat> trip);
 int main_menu();
@@ -91,6 +93,9 @@ int main() {
             case 10:
                 sort_trip(trip);
                 break;
+            case 11:
+                acc_ages(trip);
+                break;
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -114,7 +119,7 @@ int main_menu() {
     cout << "[8] Reverse trip\n";
     cout << "[9] Clear trip\n";
     cout << "[10] Sort trip by age\n";
-    cout << "[11]\n";
+    cout << "[11] Accumulate ages\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -126,8 +131,14 @@ int main_menu() {
     return choice;
 }
 
-void sort_trip(list<Goat> &trip){
+void acc_ages(list<Goat> &trip){
+    int total = accumulate(trip.begin(), trip.end(), 0, [](int sum, Goat &goat){ return sum += goat.get_age(); });
+    cout << "Total: " << total << endl;
+}
 
+void sort_trip(list<Goat> &trip){
+    trip.sort([](const Goat &a, const Goat &b){ return a.get_age() < b.get_age(); });
+    display_trip(trip);
 }
 
 void clear_trip(list<Goat> &trip){
