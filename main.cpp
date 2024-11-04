@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <string>
 #include <algorithm>
 #include "Goat.h"
 using namespace std;
@@ -90,7 +91,7 @@ int main_menu() {
     cout << "[3] List goats\n";
     cout << "[4] Duplicate all goats\n";
     cout << "[5] Make goats same\n";
-    cout << "[6]\n";
+    cout << "[6] Find goat\n";
     cout << "[7]\n";
     cout << "[8]\n";
     cout << "[9]\n";
@@ -99,16 +100,25 @@ int main_menu() {
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
-    cin >> choice;
+    cin >> choice; cin.ignore();
     while (choice < 1 || choice > 12) {
         cout << "Invalid, again --> ";
-        cin >> choice;
+        cin >> choice; cin.ignore();
     }
     return choice;
 }
 
 void find_goat(list<Goat> &trip){
+    cout << "Name: ";
+    string name; getline(cin, name); cin.ignore();
 
+    auto it = find_if(trip.begin(), trip.end(), [name](const Goat &goat){ return goat.get_name() == name; });
+    if (it == trip.end()){
+        cout << "Goat not found.\n\n";
+        return;
+    }
+
+    cout << it->get_name() << " (" << it->get_age() << ", " << it->get_color() << ")\n\n";
 }
 
 void fill(list<Goat> &trip){
